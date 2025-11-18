@@ -6,7 +6,7 @@ use Modules\Rbac\Http\Controllers\PermissionManagementController;
 use Modules\Rbac\Http\Controllers\RoleManagementController;
 use Modules\Rbac\Http\Controllers\UserManagementController;
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'rbac', 'as' => 'rbac.'], function () {
+Route::group(['middleware' => ['auth', 'checkAccess'], 'prefix' => 'rbac', 'as' => 'rbac.'], function () {
     Route::resource('navigation-management', NavManagementController::class)
         ->except('show')
         ->names('nav')
