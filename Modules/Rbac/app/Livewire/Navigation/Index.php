@@ -7,10 +7,16 @@ use App\Models\SysMenu;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 use Modules\Rbac\Services\Actions\Navigation\NavigationDestroy;
 
 class Index extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+
+    protected $paginationTheme = 'bootstrap';
+
     public array $filter = [
         'search' => '',
         'is_active' => ''
@@ -20,18 +26,22 @@ class Index extends Component
     public function lists()
     {
         return SysMenu::query()
+            ->select('sys_menus.*')
+            ->leftJoin('sys_menus as parent', 'sys_menus.parent_id', '=', 'parent.id')
             ->when($this->filter['search'], function ($query) {
                 $query->where(function ($q) {
-                    $q->where('label_name_en', 'like', '%' . $this->filter['search'] . '%')
-                        ->orWhere('label_name_pt', 'like', '%' . $this->filter['search'] . '%')
-                        ->orWhere('label_name_tl', 'like', '%' . $this->filter['search'] . '%');
+                    $q->where('sys_menus.label_name_en', 'like', '%' . $this->filter['search'] . '%')
+                    ->orWhere('sys_menus.label_name_pt', 'like', '%' . $this->filter['search'] . '%')
+                    ->orWhere('sys_menus.label_name_tl', 'like', '%' . $this->filter['search'] . '%');
                 });
             })
             ->when($this->filter['is_active'] != '', function ($query) {
-                $query->where('is_active', filter_var($this->filter['is_active'], FILTER_VALIDATE_BOOLEAN));
+                $query->where('sys_menus.is_active', filter_var($this->filter['is_active'], FILTER_VALIDATE_BOOLEAN));
             })
-            ->orderBy('sort_num')
-            ->get();
+            ->orderByRaw('COALESCE(parent.sort_num, sys_menus.sort_num) ASC')
+            ->orderByRaw('CASE WHEN sys_menus.parent_id IS NULL THEN 0 ELSE 1 END ASC')
+            ->orderBy('sys_menus.sort_num', 'ASC')
+            ->paginate(10);
     }
 
     public function delete($id)

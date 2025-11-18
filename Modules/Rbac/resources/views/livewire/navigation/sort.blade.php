@@ -21,7 +21,7 @@
                 {{-- Parent list (wire:ignore so Sortable manages DOM) --}}
                 <ul class="list-group list-group-flush parent-zone" id="menu-parent-list" wire:ignore>
                     @foreach ($this->lists as $menu)
-                        <li class="list-group-item parent-item" data-id="{{ $menu['id'] }}">
+                        <li class="list-group-item parent-item border" data-id="{{ $menu['id'] }}" wire:key='parent-{{ $menu['id'] }}'>
                             {{-- parent row --}}
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center gap-3">
@@ -43,7 +43,7 @@
                             {{-- CHILDREN --}}
                             <ul class="list-group mt-3 ms-4 child-zone" data-parent="{{ $menu['id'] }}">
                                 @foreach ($menu['children'] as $child)
-                                    <li class="list-group-item child-item py-2" data-id="{{ $child['id'] }}">
+                                    <li class="list-group-item child-item py-2 border" data-id="{{ $child['id'] }}" wire:key='child-{{ $child['id'] }}'>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex align-items-center gap-2">
                                                 <i class="drag-handle-child ri ri-drag-move-2-line cursor-move"></i>
@@ -66,9 +66,19 @@
                 </ul>
 
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary btn-save-sort mt-4">
-                        <i class="ri ri-save-line me-1"></i>
-                        Save Order
+                    <button type="submit" class="btn btn-primary btn-save-sort mt-4" wire:loading.attr="disabled">
+                        <span wire:loading.remove wire:target="save">
+                            <i class="ri ri-save-line me-1"></i>
+                            Save Order
+                        </span>
+                        <span wire:loading wire:target="save">
+                            <span class="spinner-grow flex-shrink-0" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </span>
+                            <span class="flex-grow-1 ms-2">
+                                Loading...
+                            </span>
+                        </span>
                     </button>
                 </div>
             </form>
@@ -103,7 +113,7 @@
         /* Child container */
         .child-zone {
             padding-left: 12px;
-            border-left: 3px solid rgba(13,110,253,0.08);
+            /* border-left: 3px solid rgba(13,110,253,0.08); */
             margin-top: 12px;
         }
 
@@ -214,6 +224,8 @@
                             group: 'menu-level',
                             animation: 150,
                             handle: '.drag-handle-parent, .drag-handle-child',
+                            fallbackOnBody: true,
+		                    swapThreshold: 0.65,
                             onAdd: function(evt) {
                                 let moved = evt.item;
 
@@ -245,6 +257,8 @@
                     group: 'menu-level',
                     animation: 150,
                     handle: '.drag-handle-parent, .drag-handle-child',
+                    fallbackOnBody: true,
+		            swapThreshold: 0.65,
                     onAdd: function(evt) {
                         let item = evt.item;
 
@@ -275,6 +289,8 @@
                                 group: 'menu-level',
                                 animation: 150,
                                 handle: '.drag-handle-parent, .drag-handle-child',
+                                fallbackOnBody: true,
+		                        swapThreshold: 0.65,
                                 onAdd: function(evt) {
                                     let item = evt.item;
                                     // Jika parent turun jadi child

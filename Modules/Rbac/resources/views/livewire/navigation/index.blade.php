@@ -82,6 +82,11 @@
                 </tbody>
             </table>
         </div>
+        @if ($this->lists->hasPages())
+            <div class="pt-5 px-5">
+                {{ $this->lists->links() }}
+            </div>
+        @endif
     </div>
     <x-confirm-delete-modal />
 </div>
