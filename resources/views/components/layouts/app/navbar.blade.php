@@ -32,7 +32,7 @@
                     <li>
                         <a
                             class="dropdown-item"
-                            href="pages-account-settings-account.html">
+                            href="#">
                             <div
                                 class="d-flex align-items-center"
                             >
@@ -52,7 +52,7 @@
                     <li>
                         <a
                             class="dropdown-item"
-                            href="pages-profile-user.html"
+                            href="{{ route('my-profile') }}"
                         >
                             <i class="icon-base ri ri-user-3-line icon-22px me-3"></i>
                             <span class="align-middle">My Profile</span>

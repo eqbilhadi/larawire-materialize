@@ -1,4 +1,5 @@
-<x-layouts.master {{ $attributes }}>
+@props(['title' => null])
+<x-layouts.master {{ $attributes }} :$title>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">

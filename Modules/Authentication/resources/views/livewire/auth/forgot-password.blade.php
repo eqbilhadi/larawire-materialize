@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('components.layouts.auth.cover')] class extends Component
-{
+new
+    #[Layout('components.layouts.auth.cover', ['title' => 'Forgot Password'])]
+class extends Component {
     public string $email = '';
 
     /**

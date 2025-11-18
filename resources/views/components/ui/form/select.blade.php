@@ -42,7 +42,7 @@
     <label>{{ $label }}</label>
 
     @error($model)
-        <div class="invalid-feedback d-block">
+        <div class="text-danger" style="font-size: 11.5px">
             {{ $message }}
         </div>
     @enderror

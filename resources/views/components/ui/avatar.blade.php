@@ -14,18 +14,19 @@
             onerror="this.style.display='none';
                      this.nextElementSibling.style.display='flex';"
         >
+    @else
+        <span
+            class="avatar-initial rounded-circle bg-label-primary d-flex align-items-center justify-content-center"
+            style="
+                width: {{ $size }}rem;
+                height: {{ $size }}rem;
+                display: {{ $user->avatar_url ? 'none' : 'flex' }};
+                font-weight: bold;
+                font-size: {{ $size / 2.5 }}rem;
+            "
+        >
+            {{ $user->initials }}
+        </span>
     @endif
 
-    <span
-        class="avatar-initial rounded-circle bg-label-primary d-flex align-items-center justify-content-center"
-        style="
-            width: {{ $size }}rem;
-            height: {{ $size }}rem;
-            display: {{ $user->avatar_url ? 'none' : 'flex' }};
-            font-weight: bold;
-            font-size: {{ $size / 2.5 }}rem;
-        "
-    >
-        {{ $user->initials }}
-    </span>
 </div>

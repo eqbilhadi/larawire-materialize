@@ -1,4 +1,5 @@
-<x-layouts.master>
+@props(['title' => null])
+<x-layouts.master {{ $attributes }} :$title>
     <div class="authentication-wrapper authentication-cover">
             <!-- Logo -->
             <a

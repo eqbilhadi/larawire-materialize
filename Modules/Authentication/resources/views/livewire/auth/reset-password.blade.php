@@ -10,8 +10,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Volt\Component;
 
-new #[Layout('components.layouts.auth.cover')] class extends Component
-{
+new
+    #[Layout('components.layouts.auth.cover', ['title' => 'Reset Password'])]
+class extends Component {
     #[Locked]
     public string $token = '';
     public string $email = '';

@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'auth.confirm-password')
         ->name('password.confirm');
+
+    Volt::route('my-profile', 'profile.update-profile')
+        ->name('my-profile');
 });
 
 Route::post('logout', Modules\Authentication\Livewire\Actions\Logout::class)

@@ -5,8 +5,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Modules\Authentication\Livewire\Forms\LoginForm;
 
-new #[Layout('components.layouts.auth.cover')] class extends Component
-{
+new
+    #[Layout('components.layouts.auth.cover', ['title' => 'Login'])]
+class extends Component {
     public LoginForm $form;
 
     /**

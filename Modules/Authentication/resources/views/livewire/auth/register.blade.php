@@ -8,8 +8,9 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('components.layouts.auth.cover')] class extends Component
-{
+new
+    #[Layout('components.layouts.auth.cover', ['title' => 'Register'])]
+class extends Component {
     public string $name = '';
     public string $email = '';
     public string $username = '';
