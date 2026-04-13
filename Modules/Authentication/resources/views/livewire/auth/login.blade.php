@@ -21,15 +21,21 @@ class extends Component {
 
         Session::regenerate();
 
+        $user = auth()->user();
+
+        if ($user->hasRole('vendor')) {
+            $this->redirect(route('proc.vendor.company-profile.index', absolute: false));
+            return;
+        }
+
         $this->redirectIntended(default: route('dashboard', absolute: false));
     }
 }; ?>
 
 <div>
-    <h4 class="mb-1">Welcome to {{ config('app.name') }}! 👋</h4>
+    <h4 class="mb-1">@lang('auth.login.title') {{ config('app.name') }}! 👋</h4>
     <p class="mb-5">
-        Please sign-in to your account and start the
-        adventure
+        @lang('auth.login.subtitle')
     </p>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -43,11 +49,11 @@ class extends Component {
                 class="form-control"
                 id="email"
                 wire:model="form.email"
-                placeholder="Enter your email or username"
+                placeholder="@lang('auth.form.ph.email_username')"
                 tabindex="1"
                 autofocus
             />
-            <label for="email">Email or Username</label>
+            <label for="email">@lang('auth.form.lb.email_username')</label>
             @error('form.email')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
@@ -71,7 +77,7 @@ class extends Component {
                             tabindex="2"
                         />
                         <label for="password"
-                            >Password</label
+                            >@lang('auth.form.lb.password')</label
                         >
                     </div>
                     <span
@@ -100,7 +106,7 @@ class extends Component {
                     class="form-check-label"
                     for="remember-me"
                 >
-                    Remember Me
+                    @lang('auth.login.remember_me')
                 </label>
             </div>
             @if (Route::has('password.request'))
@@ -108,19 +114,19 @@ class extends Component {
                     href="{{ route('password.request') }}"
                     class="float-end mb-1 mt-2"
                 >
-                    <span>Forgot Password?</span>
+                    <span>@lang('auth.login.forgot_password')</span>
                 </a>
             @endif
         </div>
         <button class="btn btn-primary d-grid w-100" tabindex="3">
-            Sign in
+            @lang('button.login')
         </button>
     </form>
     @if (Route::has('register'))
         <p class="text-center">
-            <span>New on our platform?</span>
+            <span>@lang('auth.login.no_account')</span>
             <a href="{{ route('register') }}">
-                <span>Create an account</span>
+                <span>@lang('auth.login.sign_up')</span>
             </a>
         </p>
     @endif

@@ -10,7 +10,7 @@
               <i class="{{ $menu->icon }} menu-icon"></i>
           </div>
           <span class="{{ $loop->depth === 1 ? 'fw-bold' : 'fw-semibold' }}">
-              {{ $menu->label_name_en }}
+              {{ $menu->{'label_name_'.current_language()} }}
           </span>
       </div>
   </td>
@@ -21,9 +21,9 @@
       <span class="badge @if ($menu->is_active == 1) bg-success @else bg-danger @endif">
           <span wire:loading.remove wire:target="changeStatus('{{ $menu->id }}')">
               @if ($menu->is_active == 1)
-                  Active
+                  {{ __('labels.active') }}
               @else
-                  Inactive
+                  {{ __('labels.inactive') }}
               @endif
           </span>
           <span wire:loading wire:target="changeStatus('{{ $menu->id }}')">

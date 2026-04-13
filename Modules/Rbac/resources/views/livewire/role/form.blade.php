@@ -4,17 +4,17 @@
             <div class="row d-flex align-items-center">
                 <div class="col-6">
                     <h5 class="card-title mb-2">
-                        @if ($sysRole->exists) Edit @else Create @endif Role
+                        @if ($sysRole->exists) @lang('rbac.role.title.edit') @else @lang('rbac.role.title.add') @endif
                     </h5>
                     <h6 class="card-subtitle text-muted fw-light">
-                        Provide the role details and select the permissions it should have.
+                        @if ($sysRole->exists) @lang('rbac.role.subtitle.edit') @else @lang('rbac.role.subtitle.add') @endif
                     </h6>
                 </div>
                 <div class="col-6 text-end">
                     <a href="{{ route('rbac.role.index') }}" class="btn btn-primary">
                         <i class="ri ri-arrow-left-circle-line me-sm-1 icon-20px"></i>
                         <span class="d-none d-sm-inline align-self-center">
-                            Back
+                            @lang('button.back')
                         </span>
                     </a>
                 </div>
@@ -25,8 +25,8 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <x-ui.form.input
-                            label="Role name"
-                            placeholder="Name of the role"
+                            :label="__('rbac.role.form.lb.name')"
+                            :placeholder="__('rbac.role.form.ph.name')"
                             model="name"
                             modifier="model"
                             wrapperClass="mb-5"
@@ -40,9 +40,9 @@
                         <div class="card shadow-none border" style="height: 100%;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="card-title mb-2">Role Permissions</h5>
+                                    <h5 class="card-title mb-2">@lang('rbac.role.form.lb.permissions')</h5>
                                     <h6 class="card-subtitle text-muted fw-light">
-                                        Choose what this role is allowed to do in the system.
+                                        @lang('rbac.role.form.ph.permissions')
                                     </h6>
                                 </div>
                             </div>
@@ -50,8 +50,8 @@
                                 <div class="d-flex w-100 gap-2 align-items-center mb-2">
                                     <div class="flex-grow-1">
                                         <x-ui.form.input
-                                            label="Search"
-                                            placeholder="Search permissions"
+                                            :label="__('labels.search')"
+                                            :placeholder="__('button.search') . ' ' . __('rbac.permission.entity')"
                                             model="searchPermission"
                                         />
                                     </div>
@@ -63,7 +63,7 @@
                                             wire:click="toggleSelectAllPermissions"
                                             style="padding: 0.8555rem 1rem;"
                                         >
-                                            Select All
+                                            @lang('button.select_all')
                                         </button>
                                     </div>
                                 </div>
@@ -124,9 +124,9 @@
                         <div class="card shadow-none border" style="height: 100%;">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="card-title mb-2">Accessible Menus</h5>
+                                    <h5 class="card-title mb-2">@lang('rbac.role.form.lb.menus')</h5>
                                     <h6 class="card-subtitle text-muted fw-light">
-                                        Determine which menus this role can access.
+                                        @lang('rbac.role.form.ph.menus')
                                     </h6>
                                 </div>
                             </div>
@@ -134,8 +134,8 @@
                                 <div class="d-flex w-100 gap-2 align-items-center mb-5">
                                     <div class="flex-grow-1">
                                         <x-ui.form.input
-                                            label="Search"
-                                            placeholder="Search menus"
+                                            :label="__('labels.search')"
+                                            :placeholder="__('button.search') . ' ' . __('rbac.nav.entity')"
                                             model="searchMenu"
                                         />
                                     </div>
@@ -147,7 +147,7 @@
                                             wire:click="toggleSelectAllMenus"
                                             style="padding: 0.8555rem 1rem;"
                                         >
-                                            Select All
+                                            @lang('button.select_all')
                                         </button>
                                     </div>
                                 </div>

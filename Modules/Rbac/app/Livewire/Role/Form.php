@@ -74,6 +74,8 @@ class Form extends Component
                 $this->searchMenu,
                 fn($q) =>
                 $q->where('label_name_en', 'like', '%' . $this->searchMenu . '%')
+                    ->orWhere('label_name_pt', 'like', '%' . $this->searchMenu . '%')
+                    ->orWhere('label_name_tl', 'like', '%' . $this->searchMenu . '%')
             )
             ->with('children')
             ->orderBy('sort_num')

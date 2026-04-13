@@ -3,8 +3,8 @@
         <div class="card-body">
             <div class="row d-flex align-items-center">
                 <div class="col-6">
-                    <h5 class="card-title mb-2">Navigation Table</h5>
-                    <h6 class="card-subtitle text-muted fw-light">Manage the structure and appearance of navigation items in the application.</h6>
+                    <h5 class="card-title mb-2">{{ __('rbac.nav.title.list') }}</h5>
+                    <h6 class="card-subtitle text-muted fw-light">{{ __('rbac.nav.subtitle.list') }}</h6>
                 </div>
                 @canany(['create menu', 'sort menu'])
                     <div class="col-6 text-end">
@@ -12,7 +12,7 @@
                             <a href="{{ route('rbac.nav.sort') }}" class="btn btn-primary">
                                 <i class="ri ri-sort-asc me-sm-1 icon-20px"></i>
                                 <span class="d-none d-sm-inline">
-                                    Sort Navigation
+                                    {{ __('button.sort') }}  {{ __('rbac.nav.entity') }}
                                 </span>
                             </a>
                         @endcan
@@ -20,7 +20,7 @@
                             <a href="{{ route('rbac.nav.create') }}" class="btn btn-primary">
                                 <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
                                 <span class="d-none d-sm-inline">
-                                    Add Navigation
+                                    {{ __('button.add') }}  {{ __('rbac.nav.entity') }}
                                 </span>
                             </a>
                         @endcan
@@ -39,19 +39,20 @@
                             <i class="icon-base ri ri-search-line"></i>
                         </span>
                         <x-ui.form.input
-                            label="Search"
-                            placeholder="Search by menu name ..."
+                            :label="__('rbac.nav.filter.lb_search')"
+                            :placeholder="__('rbac.nav.filter.ph_search')"
                             model="filter.search"
                         />
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <x-ui.form.select
-                        label="Menu Status"
+                        :label="__('rbac.nav.filter.lb_status')"
                         model="filter.is_active"
+                        :placeholder="__('rbac.nav.filter.ph_status')"
                         :options="[
-                            'true' => 'Active',
-                            'false' => 'Inactive',
+                            'true' => __('labels.active'),
+                            'false' => __('labels.inactive'),
                         ]"
                     />
                 </div>
@@ -61,13 +62,13 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Label Name</th>
-                        <th>Controller</th>
-                        <th>Route</th>
-                        <th>URL</th>
+                        <th>{{ __('rbac.nav.table.header_name') }}</th>
+                        <th>{{ __('rbac.nav.table.header_controller') }}</th>
+                        <th>{{ __('rbac.nav.table.header_route') }}</th>
+                        <th>{{ __('rbac.nav.table.header_url') }}</th>
                         <th class="text-center">Status</th>
                         @canany(['sort menu', 'edit menu', 'delete menu'])
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">{{ __('rbac.nav.table.header_actions') }}</th>
                         @endcanany
                     </tr>
                 </thead>
@@ -76,7 +77,7 @@
                         <x-rbac::menu-item :menu="$nav" :$loop />
                     @empty
                         <tr>
-                            <td colspan="100%" class="text-center">Data Not Found</td>
+                            <td colspan="100%" class="text-center">{{ __('labels.table_no_data') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -2,10 +2,8 @@
 
 namespace Modules\Rbac\Services\Actions\User;
 
-use App\Models\SysRole;
 use App\Models\SysUser;
 use Illuminate\Support\Arr;
-use Modules\Rbac\Models\ComRole;
 use Modules\Rbac\Services\Actions\ActionsService;
 
 class UserActions extends ActionsService
@@ -56,6 +54,7 @@ class UserActions extends ActionsService
             'birthdate' => Arr::get($this->data, 'birthdate'),
             'gender' => Arr::get($this->data, 'gender'),
             'phone' => Arr::get($this->data, 'phone'),
+            'district_code' => Arr::get($this->data, 'district_code'),
             'address' => Arr::get($this->data, 'address'),
             'is_active' => Arr::get($this->data, 'is_active'),
         ];

@@ -38,9 +38,9 @@ class extends Component {
 }; ?>
 
 <div>
-    <h4 class="mb-1">Forgot Password? 🔒</h4>
+    <h4 class="mb-1">@lang('auth.forgot_password.title') 🔒</h4>
     <p class="mb-5"
-        >Enter your email and we'll send you instructions to reset your password</p
+        >@lang('auth.forgot_password.subtitle')</p
     >
     <form
         wire:submit="sendPasswordResetLink"
@@ -54,14 +54,14 @@ class extends Component {
                 class="form-control"
                 id="email"
                 wire:model="email"
-                placeholder="Enter your email"
+                placeholder="@lang('auth.form.ph.email')"
                 autofocus />
-            <label for="email">Email</label>
+            <label for="email">@lang('auth.form.lb.email')</label>
             @error('email')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
         </div>
-        <button class="btn btn-primary d-grid w-100 mb-5">Send Reset Link</button>
+        <button class="btn btn-primary d-grid w-100 mb-5">@lang('auth.forgot_password.send_reset_link')</button>
     </form>
     <div class="text-center">
         <a
@@ -72,7 +72,7 @@ class extends Component {
                 class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-20px me-1_5"
             >
             </i>
-            Back to login
+            @lang('auth.forgot_password.back_to_login')
         </a>
     </div>
 

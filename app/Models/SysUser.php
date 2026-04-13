@@ -90,11 +90,15 @@ class SysUser extends Authenticatable
     {
         return Attribute::make(
             get: function () {
-                if ($this->avatar) {
-                    return route('stream.file', $this->avatar);
+                if (!$this->avatar) {
+                    return null;
                 }
 
-                return null;
+                if (Str::startsWith($this->avatar, 'assets/')) {
+                    return asset($this->avatar);
+                }
+
+                return route('stream.file', ['path' => $this->avatar]);
             }
         );
     }

@@ -8,9 +8,10 @@
         <img
             src="{{ $user->avatar_url }}"
             alt="Avatar"
-            class="rounded-circle object-cover"
+            class="rounded-circle"
             width="{{ $size }}"
             height="{{ $size }}"
+            style="object-fit: cover; object-position: center;"
             onerror="this.style.display='none';
                      this.nextElementSibling.style.display='flex';"
         >

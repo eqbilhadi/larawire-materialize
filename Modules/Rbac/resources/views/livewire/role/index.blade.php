@@ -3,15 +3,15 @@
         <div class="card-body">
             <div class="row d-flex align-items-center">
                 <div class="col-6">
-                    <h5 class="card-title mb-2">Role Management</h5>
-                    <h6 class="card-subtitle text-muted fw-light">View, update, or remove roles and control access levels across the application.</h6>
+                    <h5 class="card-title mb-2">@lang('rbac.role.title.list')</h5>
+                    <h6 class="card-subtitle text-muted fw-light">@lang('rbac.role.subtitle.list')</h6>
                 </div>
                 @can('create role')
                     <div class="col-6 text-end">
                         <a href="{{ route('rbac.role.create') }}" class="btn btn-primary">
                             <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
                             <span class="d-none d-sm-inline">
-                                Add Role
+                                @lang('button.add') @lang('rbac.role.entity')
                             </span>
                         </a>
                     </div>
@@ -29,8 +29,8 @@
                             <i class="icon-base ri ri-search-line"></i>
                         </span>
                         <x-ui.form.input
-                            label="Search"
-                            placeholder="Search by menu name ..."
+                            :label="__('rbac.role.filter.lb_search')"
+                            :placeholder="__('rbac.role.filter.ph_search')"
                             model="filter.search"
                         />
                     </div>
@@ -41,11 +41,11 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 5px">No</th>
-                        <th>Role Name</th>
-                        <th>Guard</th>
+                        <th class="text-center" style="width: 5px">@lang('rbac.role.table.header_no')</th>
+                        <th>@lang('rbac.role.table.header_name')</th>
+                        <th>@lang('rbac.role.table.header_guard')</th>
                         @canany(['edit role', 'delete role'])
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">@lang('rbac.role.table.header_actions')</th>
                         @endcanany
                     </tr>
                 </thead>
@@ -87,7 +87,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="100%" class="text-center">Data Not Found</td>
+                            <td colspan="100%" class="text-center">@lang('labels.table_no_data')</td>
                         </tr>
                     @endforelse
                 </tbody>

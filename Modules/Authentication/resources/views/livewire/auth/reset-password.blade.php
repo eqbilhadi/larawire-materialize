@@ -87,9 +87,9 @@ class extends Component {
                 class="form-control"
                 id="email"
                 wire:model="email"
-                placeholder="Enter your email"
+                placeholder="@lang('auth.form.ph.email')"
                 autofocus />
-            <label for="email">Email</label>
+            <label for="email">@lang('auth.form.lb.email')</label>
             @error('email')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
@@ -104,7 +104,7 @@ class extends Component {
                         wire:model="password"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password" />
-                    <label for="password">New Password</label>
+                    <label for="password">@lang('auth.form.lb.new_password')</label>
                 </div>
                 <span class="input-group-text cursor-pointer"
                     ><i class="icon-base ri ri-eye-off-line icon-20px"></i
@@ -124,7 +124,7 @@ class extends Component {
                         wire:model="password_confirmation"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password" />
-                    <label for="confirm-password">Confirm Password</label>
+                    <label for="confirm-password">@lang('auth.form.lb.password_confirmation')</label>
                 </div>
                 <span class="input-group-text cursor-pointer"
                     ><i class="icon-base ri ri-eye-off-line icon-20px"></i
@@ -134,13 +134,13 @@ class extends Component {
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
         </div>
-        <button class="btn btn-primary d-grid w-100 mb-5">Set new password</button>
+        <button class="btn btn-primary d-grid w-100 mb-5">@lang('button.submit')</button>
         <div class="text-center">
             <a
                 href="{{ route('login') }}"
                 class="d-flex align-items-center justify-content-center">
                 <i class="icon-base ri ri-arrow-left-s-line scaleX-n1-rtl icon-20px me-1_5"></i>
-                Back to login
+                @lang('auth.forgot_password.back_to_login')
             </a>
         </div>
     </form>

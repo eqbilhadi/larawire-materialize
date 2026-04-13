@@ -3,8 +3,8 @@
         <div class="card-body">
             <div class="row d-flex align-items-center">
                 <div class="col-6">
-                    <h5 class="card-title mb-2">Permission Management</h5>
-                    <h6 class="card-subtitle text-muted fw-light">View and organize permissions that control user access to features.</h6>
+                    <h5 class="card-title mb-2">@lang('rbac.permission.title.list')</h5>
+                    <h6 class="card-subtitle text-muted fw-light">@lang('rbac.permission.subtitle.list')</h6>
                 </div>
                 @can('create permission')
                     <div class="col-6 text-end">
@@ -15,7 +15,7 @@
                             data-bs-target="#permissionModalForm"
                         >
                             <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
-                            <span class="d-none d-sm-inline"> Add Permissions </span>
+                            <span class="d-none d-sm-inline"> {{ __('button.add') }}  {{ __('rbac.permission.entity') }} </span>
                         </button>
                     </div>
                 @endcan
@@ -32,8 +32,8 @@
                             <i class="icon-base ri ri-search-line"></i>
                         </span>
                         <x-ui.form.input
-                            label="Search"
-                            placeholder="Search by menu name ..."
+                            :label="__('rbac.permission.filter.lb_search')"
+                            :placeholder="__('rbac.permission.filter.ph_search')"
                             model="filter.search"
                         />
                     </div>
@@ -44,11 +44,11 @@
             <table class="table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 5px">No</th>
-                        <th>Permission Name</th>
-                        <th>Group</th>
+                        <th class="text-center" style="width: 5px">@lang('rbac.permission.table.header_no')</th>
+                        <th>@lang('rbac.permission.table.header_name')</th>
+                        <th>@lang('rbac.permission.table.header_group')</th>
                         @canany(['edit permission', 'delete permission'])
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">@lang('rbac.permission.table.header_actions')</th>
                         @endcanany
                     </tr>
                 </thead>

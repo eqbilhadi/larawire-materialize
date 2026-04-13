@@ -16,34 +16,46 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body">
                 <div class="text-center mb-4">
-                    <h3 class="mb-2">{{ Str::ucfirst($actionForm) }} Permission</h3>
-                    <p>Permissions you may use and assign to your users.</p>
+                    <h3 class="mb-0">
+                        @if ($actionForm == 'Add')
+                            @lang('rbac.permission.title.add')
+                        @else
+                            @lang('rbac.permission.title.edit')
+                        @endif
+                    </h3>
+                    <p>
+                        @if ($actionForm == 'Add')
+                            @lang('rbac.permission.subtitle.add')
+                        @else
+                            @lang('rbac.permission.subtitle.edit')
+                        @endif
+                    </p>
                 </div>
                 <form wire:submit="save">
                     <x-ui.form.input
-                        label="Permisssion Name"
-                        placeholder="Name of the permission"
+                        :label="__('rbac.permission.form.lb.name')"
+                        :placeholder="__('rbac.permission.form.ph.name')"
                         model="form.name"
                         modifier="model"
                         wrapperClass="mb-5"
                         class="auto-focus"
                     />
                     <x-ui.form.input
-                        label="Permisssion Group"
-                        placeholder="Group of the permission"
+                        :label="__('rbac.permission.form.lb.group')"
+                        :placeholder="__('rbac.permission.form.ph.group')"
                         model="form.group"
                         modifier="model"
                         wrapperClass="mb-5"
                     />
                     <div class="col-12 text-center demo-vertical-spacing">
-                        <button
-                            type="reset"
+                        <a
+                            href="{{ route('rbac.permission.index') }}"
                             class="btn btn-label-secondary me-sm-3 me-1"
                             data-bs-dismiss="modal"
                             aria-label="Close"
                         >
-                            Cancel
-                        </button>
+                            @lang('button.cancel')
+                        </a>
                         <button
                             type="submit"
                             class="btn btn-primary mt-3"
@@ -52,14 +64,14 @@
                         >
                             <span wire:loading.remove wire:target="save">
                                 <i class="fa-regular fa-floppy-disk me-1"></i>
-                                Save
+                                @lang('button.save')
                             </span>
                             <span wire:loading wire:target="save">
                                 <span class="spinner-grow flex-shrink-0" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </span>
                                 <span class="flex-grow-1 ms-2">
-                                    Loading...
+                                    @lang('button.loading')
                                 </span>
                             </span>
                         </button>

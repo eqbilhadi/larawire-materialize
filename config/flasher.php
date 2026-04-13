@@ -15,7 +15,24 @@ use Flasher\Prime\Configuration;
  */
 return Configuration::from([
     // Default notification library (e.g., 'flasher', 'toastr', 'noty', 'notyf', 'sweetalert')
-    'default' => 'flasher',
+    'default' => 'theme.ios',
+
+    'themes' => [
+        'ios' => [
+            'scripts' => [
+                '/vendor/flasher/flasher.min.js',
+                '/vendor/flasher/themes/ios/ios.min.js',
+            ],
+            'styles' => [
+                '/vendor/flasher/flasher.min.css',
+                '/vendor/flasher/themes/ios/ios.min.css',
+            ],
+            'options' => [
+                'timeout' => 3000, // Time in milliseconds before the notification disappears
+                'position' => 'top-right', // Where the notification appears on the screen
+            ],
+        ],
+    ],
 
     // Path to the main PHPFlasher JavaScript file
     'main_script' => '/vendor/flasher/flasher.min.js',

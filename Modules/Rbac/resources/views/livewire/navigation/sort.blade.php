@@ -4,13 +4,13 @@
         <div class="card-body">
             <div class="row d-flex align-items-center">
                 <div class="col-6">
-                    <h5 class="card-title mb-2">Sort Navigation</h5>
-                    <h6 class="card-subtitle text-muted fw-light">Form to sort a navigation</h6>
+                    <h5 class="card-title mb-2">@lang('rbac.nav.title.sort')</h5>
+                    <h6 class="card-subtitle text-muted fw-light">@lang('rbac.nav.subtitle.sort')</h6>
                 </div>
                 <div class="col-6 text-end">
                     <a href="{{ route('rbac.nav.index') }}" class="btn btn-outline-primary">
                         <i class="ri ri-arrow-left-circle-line me-sm-1 icon-20px"></i>
-                        <span class="d-none d-sm-inline align-self-center">Back</span>
+                        <span class="d-none d-sm-inline align-self-center">@lang('button.back')</span>
                     </a>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                                         <i class="drag-handle-parent ri ri-drag-move-2-line cursor-move"></i>
                                         <i class="{{ $menu['icon'] }} menu-icon ms-5"></i>
                                         <div class="item-label">
-                                            <div class="fw-semibold">{{ $menu['label_name_en'] }}</div>
+                                            <div class="fw-semibold">{{ $menu['label_name_' . current_language()] }}</div>
                                             <small class="text-muted d-block">{{ $menu['controller_name'] ?? '' }}</small>
                                         </div>
                                     </span>
@@ -49,7 +49,7 @@
                                                 <i class="drag-handle-child ri ri-drag-move-2-line cursor-move"></i>
                                                 <i class="{{ $child['icon'] }} menu-icon ms-5"></i>
                                                 <div>
-                                                    <div class="fw-medium">{{ $child['label_name_en'] }}</div>
+                                                    <div class="fw-medium">{{ $child['label_name_' . current_language()] }}</div>
                                                     <small class="text-muted d-block">{{ $child['controller_name'] ?? '' }}</small>
                                                 </div>
                                             </div>
@@ -69,14 +69,14 @@
                     <button type="submit" class="btn btn-primary btn-save-sort mt-4" wire:loading.attr="disabled">
                         <span wire:loading.remove wire:target="save">
                             <i class="ri ri-save-line me-1"></i>
-                            Save Order
+                            @lang('button.save')
                         </span>
                         <span wire:loading wire:target="save">
                             <span class="spinner-grow flex-shrink-0" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </span>
                             <span class="flex-grow-1 ms-2">
-                                Loading...
+                                @lang('button.loading')
                             </span>
                         </span>
                     </button>

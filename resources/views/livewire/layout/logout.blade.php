@@ -22,7 +22,7 @@ new class extends Component
         wire:click="logout"
         wire:loading.attr="disabled"
     >
-        <small class="align-middle">Logout</small>
+        <small class="align-middle">@lang('button.logout')</small>
         <i class="icon-base ri ri-logout-box-r-line ms-2 icon-16px"></i>
     </button>
 </div>

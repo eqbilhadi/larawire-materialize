@@ -41,12 +41,12 @@ class Form extends Component
         }
 
         $this->options['parents_nav'] = SysMenu::whereNull('parent_id')
-            ->select('id', 'label_name_en')
+            ->select('id', 'label_name_en', 'label_name_pt', 'label_name_tl')
             ->orderBy('sort_num')
             ->get()
             ->map(fn($row) => [
                 'id' => $row->id,
-                'label' => $row->label_name_en,
+                'label' => $row->{'label_name_'.current_language()},
             ])
             ->toArray();
     }

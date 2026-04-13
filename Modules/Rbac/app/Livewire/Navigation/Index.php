@@ -31,8 +31,8 @@ class Index extends Component
             ->when($this->filter['search'], function ($query) {
                 $query->where(function ($q) {
                     $q->where('sys_menus.label_name_en', 'like', '%' . $this->filter['search'] . '%')
-                    ->orWhere('sys_menus.label_name_pt', 'like', '%' . $this->filter['search'] . '%')
-                    ->orWhere('sys_menus.label_name_tl', 'like', '%' . $this->filter['search'] . '%');
+                        ->orWhere('sys_menus.label_name_pt', 'like', '%' . $this->filter['search'] . '%')
+                        ->orWhere('sys_menus.label_name_tl', 'like', '%' . $this->filter['search'] . '%');
                 });
             })
             ->when($this->filter['is_active'] != '', function ($query) {
@@ -41,7 +41,7 @@ class Index extends Component
             ->orderByRaw('COALESCE(parent.sort_num, sys_menus.sort_num) ASC')
             ->orderByRaw('CASE WHEN sys_menus.parent_id IS NULL THEN 0 ELSE 1 END ASC')
             ->orderBy('sys_menus.sort_num', 'ASC')
-            ->paginate(10);
+            ->paginate(10)->onEachSide(1);
     }
 
     public function delete($id)

@@ -4,17 +4,17 @@
             <div class="row d-flex align-items-center">
                 <div class="col-6">
                     <h5 class="card-title mb-2">
-                        @if ($sysMenu->exists) Edit @else Create @endif Navigation
+                        @if ($sysMenu->exists) @lang('rbac.nav.title.edit') @else @lang('rbac.nav.title.add') @endif
                     </h5>
                     <h6 class="card-subtitle text-muted fw-light">
-                        Form to @if ($sysMenu->exists) edit @else create @endif a navigation
+                        @if ($sysMenu->exists) @lang('rbac.nav.subtitle.edit') @else @lang('rbac.nav.subtitle.add') @endif
                     </h6>
                 </div>
                 <div class="col-6 text-end">
                     <a href="{{ route('rbac.nav.index') }}" class="btn btn-primary">
                         <i class="ri ri-arrow-left-circle-line me-sm-1 icon-20px"></i>
                         <span class="d-none d-sm-inline align-self-center">
-                            Back
+                            @lang('button.back')
                         </span>
                     </a>
                 </div>
@@ -26,56 +26,57 @@
                 <div class="row justify-content-center gap-4">
                     <div class="col-lg-8">
                         <x-ui.form.input
-                            label="Icon"
-                            placeholder="Icon base from https://icon-sets.iconify.design/ri"
+                            :label="__('rbac.nav.form.lb.icon')"
+                            :placeholder="__('rbac.nav.form.ph.icon')"
                             model="form.icon"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.select
-                            label="Nav Parent"
+                            :label="__('rbac.nav.form.lb.nav_parent')"
                             model="form.parent_id"
+                            :placeholder="__('rbac.nav.form.ph.nav_parent')"
                             :options="$options['parents_nav']"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="English label name"
-                            placeholder="English label of the menu"
+                            :label="__('rbac.nav.form.lb.name_en')"
+                            :placeholder="__('rbac.nav.form.ph.name_en')"
                             model="form.label_name_en"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="Portuguese label name"
-                            placeholder="Portuguese label of the menu"
+                            :label="__('rbac.nav.form.lb.name_pt')"
+                            :placeholder="__('rbac.nav.form.ph.name_pt')"
                             model="form.label_name_pt"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="Tetun label name"
-                            placeholder="Tetun label of the menu"
+                            :label="__('rbac.nav.form.lb.name_tl')"
+                            :placeholder="__('rbac.nav.form.ph.name_tl')"
                             model="form.label_name_tl"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="Controller class name"
-                            placeholder="The name of the controller that handles the navigation"
+                            :label="__('rbac.nav.form.lb.controller')"
+                            :placeholder="__('rbac.nav.form.ph.controller')"
                             model="form.controller_name"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="Route name"
-                            placeholder="The name of the route that handles the navigation"
+                            :label="__('rbac.nav.form.lb.route')"
+                            :placeholder="__('rbac.nav.form.ph.route')"
                             model="form.route_name"
                             modifier="model"
                             wrapperClass="mb-5"
                         />
                         <x-ui.form.input
-                            label="Url"
-                            placeholder="The url that handles the navigation"
+                            :label="__('rbac.nav.form.lb.url')"
+                            :placeholder="__('rbac.nav.form.ph.url')"
                             model="form.url"
                             modifier="model"
                             wrapperClass="mb-5"
@@ -88,9 +89,9 @@
                                         <span class="switch-on"></span>
                                         <span class="switch-off"></span>
                                     </span>
-                                    <span class="switch-label">Divider</span>
+                                    <span class="switch-label">{{ __('rbac.nav.form.lb.divider') }}</span>
                                 </div>
-                                <span class="fw-light text-muted">{{ $form['is_divider'] ? "Enabled" : "Disabled" }}</span>
+                                <span class="fw-light text-muted">{{ $form['is_divider'] ? __('labels.enabled') : __('labels.disabled') }}</span>
                             </div>
                             @error('form.is_divider')
                                 <div class="invalid-feedback d-block">{{ $message }}
@@ -104,9 +105,9 @@
                                         <span class="switch-on"></span>
                                         <span class="switch-off"></span>
                                     </span>
-                                    <span class="switch-label">Active Menu</span>
+                                    <span class="switch-label">{{ __('rbac.nav.form.lb.active') }}</span>
                                 </div>
-                                <span class="fw-light text-muted">{{ $form['is_active'] ? "Active" : "Inactive" }}</span>
+                                <span class="fw-light text-muted">{{ $form['is_active'] ? __('labels.active') : __('labels.inactive') }}</span>
                             </div>
                         </label>
                         @error('form.is_divider')
@@ -125,14 +126,15 @@
                         >
                             <span wire:loading.remove wire:target="resetForm">
                                 <i class="fa-regular fa-rotate-left me-1"></i>
-                                Reset
+                                @lang('button.reset')
                             </span>
                             <span wire:loading wire:target="resetForm">
-                                <i
-                                    class="fa-solid fa-spinner-third fa-spin"
-                                    style="--fa-animation-duration: 0.7s"
-                                ></i>
-                                Reset
+                                <span class="spinner-grow flex-shrink-0" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </span>
+                                <span class="flex-grow-1 ms-2">
+                                    @lang('button.loading')
+                                </span>
                             </span>
                         </button>
                         <button
@@ -143,14 +145,14 @@
                         >
                             <span wire:loading.remove wire:target="save">
                                 <i class="fa-regular fa-floppy-disk me-1"></i>
-                                Save
+                                @if ($sysMenu->exists) @lang('button.update') @else @lang('button.save') @endif
                             </span>
                             <span wire:loading wire:target="save">
                                 <span class="spinner-grow flex-shrink-0" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </span>
                                 <span class="flex-grow-1 ms-2">
-                                    Loading...
+                                    @lang('button.loading')
                                 </span>
                             </span>
                         </button>

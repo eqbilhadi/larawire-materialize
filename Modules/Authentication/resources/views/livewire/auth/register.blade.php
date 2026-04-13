@@ -41,9 +41,9 @@ class extends Component {
 }; ?>
 
 <div>
-    <h4 class="mb-1">Welcome to {{ config('app.name') }}! 👋</h4>
+    <h4 class="mb-1">@lang('auth.register.title') {{ config('app.name') }}! 👋</h4>
     <p class="mb-5">
-        Please fill form below to register your account
+        @lang('auth.register.subtitle')
     </p>
     <form wire:submit="register" class="mb-5">
         <div
@@ -54,9 +54,9 @@ class extends Component {
                 class="form-control"
                 id="name"
                 wire:model="name"
-                placeholder="Enter your name"
+                placeholder="@lang('auth.form.ph.fullname')"
                 autofocus />
-            <label for="name">Fullname</label>
+            <label for="name">@lang('auth.form.lb.fullname')</label>
             @error('name')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
@@ -69,9 +69,9 @@ class extends Component {
                 class="form-control"
                 id="email"
                 wire:model="email"
-                placeholder="Enter your email"
+                placeholder="@lang('auth.form.ph.email')"
                 autofocus />
-            <label for="email">Email</label>
+            <label for="email">@lang('auth.form.lb.email')</label>
             @error('email')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
@@ -84,9 +84,9 @@ class extends Component {
                 class="form-control"
                 id="username"
                 wire:model="username"
-                placeholder="Enter your username"
+                placeholder="@lang('auth.form.ph.username')"
                 autofocus />
-            <label for="username">Username</label>
+            <label for="username">@lang('auth.form.lb.username')</label>
             @error('username')
                 <span class="text-danger" style="font-size: 11.5px">{{ $message }}</span>
             @enderror
@@ -101,7 +101,7 @@ class extends Component {
                         wire:model="password"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password" />
-                    <label for="password">Password</label>
+                    <label for="password">@lang('auth.form.lb.password')</label>
                 </div>
                 <span class="input-group-text cursor-pointer"
                     ><i class="icon-base ri ri-eye-off-line"></i
@@ -121,7 +121,7 @@ class extends Component {
                         wire:model="password_confirmation"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password_confirmation" />
-                    <label for="password_confirmation">Password Confirmation</label>
+                    <label for="password_confirmation">@lang('auth.form.lb.password_confirmation')</label>
                 </div>
                 <span class="input-group-text cursor-pointer"
                     ><i class="icon-base ri ri-eye-off-line"></i
@@ -140,17 +140,17 @@ class extends Component {
                     wire:model.live="terms_condition"
                     name="terms" />
                 <label class="form-check-label" for="terms-conditions">
-                    I agree to
-                    <a href="javascript:void(0);">privacy policy & terms</a>
+                    @lang('auth.register.privacy_policy.prefix')
+                    <a href="javascript:void(0);">@lang('auth.register.privacy_policy.link')</a>
                 </label>
             </div>
         </div>
-        <button class="btn btn-primary d-grid w-100" @disabled(!$terms_condition)>Sign up</button>
+        <button class="btn btn-primary d-grid w-100" @disabled(!$terms_condition)>@lang('button.register')</button>
     </form>
     <p class="text-center mb-5">
-        <span>Already have an account?</span>
+        <span>@lang('auth.register.already_account')</span>
         <a href="{{ route('login') }}">
-            <span>Sign in instead</span>
+            <span>@lang('auth.register.sign_in')</span>
         </a>
     </p>
 

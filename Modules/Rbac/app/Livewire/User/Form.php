@@ -6,6 +6,7 @@ use App\Models\SysRole;
 use App\Models\SysUser;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Modules\MasterData\Models\Region;
 use Modules\Rbac\Livewire\Validations\UserValidation;
 use Modules\Rbac\Services\Actions\User\UserActions;
 
@@ -24,6 +25,7 @@ class Form extends Component
         'phone' => '',
         'address' => '',
         'is_active' => '',
+        'district_code' => '',
         'roles' => ''
     ];
 
@@ -49,6 +51,13 @@ class Form extends Component
                 'label' => $row->name,
             ])
             ->toArray();
+
+        $this->options['districts'] = Region::districts()->where('is_active', true)->orderBy('code')->get()
+            ->map(fn($row) => [
+                'id' => $row->code,
+                'label' => "{$row->code} - {$row->name}",
+            ])
+            ->toArray();
     }
 
     public function fillForm()
@@ -62,10 +71,10 @@ class Form extends Component
             'gender' => $this->sysUser->gender,
             'phone' => $this->sysUser->phone,
             'address' => $this->sysUser->address,
+            'district_code' => $this->sysUser->district_code,
             'is_active' => $this->sysUser->is_active,
             'roles' => $this->sysUser->roles()->first()?->name ?? '',
         ];
-
     }
 
     public function save()
@@ -74,7 +83,7 @@ class Form extends Component
 
         try {
             (new UserActions($this->form, $this->sysUser))->handle();
-            flash()->success($this->actionForm. ' user successfully');
+            flash()->success($this->actionForm . ' user successfully');
             return $this->redirect(route('rbac.user.index'));
         } catch (\Exception $err) {
             flash()->error('Something went wrong, try again later!');

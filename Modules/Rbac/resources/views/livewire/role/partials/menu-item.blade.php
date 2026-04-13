@@ -22,7 +22,7 @@
         >
 
         <label class="form-check-label" for="menu-{{ $menu->id }}">
-            {{ $menu->label_name_en ?? $menu->label_name }}
+            {{ $menu->{'label_name_'.current_language()} ?? $menu->label_name }}
         </label>
     </div>
 
