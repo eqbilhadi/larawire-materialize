@@ -73,15 +73,15 @@
     border-radius: 5px;
     display: flex;
     flex-shrink: 0;
-    height: 22px;
+    height: 26px;
     justify-content: center;
     margin-right: 8px;
-    width: 22px;
+    width: 26px;
 }
 .fl-ios .fl-icon-svg {
     color: #fff;
-    height: 14px;
-    width: 14px;
+    height: 18px;
+    width: 18px;
 }
 .fl-ios .fl-app-info {
     align-items: baseline;
@@ -90,7 +90,7 @@
     justify-content: space-between;
 }
 .fl-ios .fl-app-name {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     font-weight: 600;
 }
 .fl-ios .fl-time {
@@ -201,4 +201,11 @@ body.fl-dark .fl-ios .fl-close,
 html.fl-dark .fl-ios .fl-close {
     background-color: hsla(0, 0%, 100%, 0.2);
     color: var(--ios-text-dark);
+}
+.border-error {
+    --bs-border-opacity: 1;
+    border-color: rgba(
+        var(--bs-danger-rgb),
+        var(--bs-border-opacity)
+    ) !important;
 }
