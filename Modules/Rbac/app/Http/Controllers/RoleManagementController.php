@@ -8,15 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class RoleManagementController extends Controller implements HasMiddleware
+class RoleManagementController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('permission:create role', only: ['create']),
-            new Middleware('permission:edit role', only: ['edit']),
-        ];
-    }
     public function index()
     {
         return view('rbac::pages.role.index');

@@ -6,7 +6,7 @@
                     <h5 class="card-title mb-2">@lang('rbac.user.title.list')</h5>
                     <h6 class="card-subtitle text-muted fw-light">@lang('rbac.user.subtitle.list')</h6>
                 </div>
-                @can('create user')
+                @can('user.create')
                     <div class="col-6 text-end">
                         <a href="{{ route('rbac.user.create') }}" class="btn btn-primary">
                             <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
@@ -68,7 +68,7 @@
                         <th>@lang('rbac.user.table.header_account')</th>
                         <th>@lang('rbac.user.table.header_gender')</th>
                         <th class="text-center">@lang('rbac.user.table.header_status')</th>
-                        @canany(['edit user', 'delete user'])
+                        @canany(['user.edit', 'user.delete'])
                             <th class="text-end">@lang('rbac.user.table.header_actions')</th>
                         @endcanany
                     </tr>
@@ -110,9 +110,9 @@
                                     <span class="badge rounded-pill text-bg-light">@lang('labels.inactive')</span>
                                 @endif
                             </td>
-                            @canany(['edit user', 'delete user'])
+                            @canany(['user.edit', 'user.delete'])
                                 <td class="text-end">
-                                    @can('edit user')
+                                    @can('user.edit')
                                         <a
                                             href="{{ route('rbac.user.edit', $user->id) }}"
                                             class="btn btn-icon btn-warning"
@@ -120,7 +120,7 @@
                                             <i class="icon-base ri ri-edit-2-line icon-22px text-white"></i>
                                         </a>
                                     @endcan
-                                    @can('delete user')
+                                    @can('user.delete')
                                         <button
                                             type="button"
                                             class="btn btn-icon btn-danger"

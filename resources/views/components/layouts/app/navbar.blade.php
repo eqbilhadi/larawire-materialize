@@ -29,7 +29,6 @@
                                 <div class="flex-grow-1">
                                     <h6 class="mb-0">{{ auth()->user()->name }}</h6>
                                     <small class="text-body-secondary small">{{ auth()->user()->main_role }}</small>
-                                    <small class="text-body-secondary small">{{ auth()->user()->district?->name ?? "All District" }}</small>
                                 </div>
                             </div>
                         </a>

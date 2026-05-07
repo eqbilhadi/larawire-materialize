@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('controller_name')->nullable();
             $table->string('route_name')->nullable();
             $table->string('url')->nullable();
+            $table->string('permission_prefix')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_divider')->default(false);
             $table->timestamps();

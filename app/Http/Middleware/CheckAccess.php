@@ -5,25 +5,42 @@ namespace App\Http\Middleware;
 use App\Models\SysMenu;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Rbac\Models\SysMenuAction;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckAccess
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        $currentController = request()->route()->getControllerClass();
+        /** @var \App\Models\SysUser $user */
+        $user = Auth::user();
 
-        $user = \Illuminate\Support\Facades\Auth::user();
+        if (!$user) {
+            abort(Response::HTTP_UNAUTHORIZED);
+        }
 
-        $access = SysMenu::whereControllerName($currentController)->whereIsActive(1)
-                ->whereHas('roles', fn($query) => $query->whereIn('role_id', $user->roles->pluck('id')))
-                ->first();
+        $userRoleIds = $user->roles->pluck('id')->toArray();
+        $currentController = $request->route()->getControllerClass();
+        $currentRouteName = $request->route()->getName();
 
-        return $access ? $next($request) : abort(403, 'Dont Have Access To This Url');
+        $menu = SysMenu::where('controller_name', $currentController)
+            ->where('is_active', 1)
+            ->whereHas('roles', fn($q) => $q->whereIn('role_id', $userRoleIds))
+            ->first();
+
+        if (!$menu) {
+            abort(403, 'You do not have access to this menu.');
+        }
+
+        $menuAction = SysMenuAction::where('route_name', $currentRouteName)
+            ->where('menu_id', $menu->id)
+            ->first();
+
+        if ($menuAction && !$user->can($menuAction->permission_name)) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
+
+        return $next($request);
     }
 }

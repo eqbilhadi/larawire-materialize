@@ -1,4 +1,13 @@
 <div>
+    <style>
+        .form-check:not(.form-switch) .form-check-input-access[type=checkbox] {
+            background-size: 0.8rem;
+        }
+        .form-check-input-access {
+            width: 1em;
+            height: 1em;
+        }
+    </style>
     <div class="card">
         <div class="card-body">
             <div class="row d-flex align-items-center">
@@ -13,15 +22,16 @@
                 <div class="col-6 text-end">
                     <a href="{{ route('rbac.role.index') }}" class="btn btn-primary">
                         <i class="ri ri-arrow-left-circle-line me-sm-1 icon-20px"></i>
-                        <span class="d-none d-sm-inline align-self-center">
-                            @lang('button.back')
-                        </span>
+                        <span class="d-none d-sm-inline align-self-center">@lang('button.back')</span>
                     </a>
                 </div>
             </div>
         </div>
+
         <div class="card-body border-top">
             <form wire:submit="save">
+
+                {{-- Role name --}}
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
                         <x-ui.form.input
@@ -36,14 +46,13 @@
 
                 <div class="row">
 
-                    <div class="col-md-6">
-                        <div class="card shadow-none border" style="height: 100%;">
+                    {{-- ── Permissions (legacy) ───────────────────────────── --}}
+                    <div @class(['d-none' => $this->permissions->isEmpty(), 'col-md-4' => $this->permissions->isNotEmpty()])>
+                        <div class="card shadow-none border h-100">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="card-title mb-2">@lang('rbac.role.form.lb.permissions')</h5>
-                                    <h6 class="card-subtitle text-muted fw-light">
-                                        @lang('rbac.role.form.ph.permissions')
-                                    </h6>
+                                    <h5 class="card-title mb-1">@lang('rbac.role.form.lb.permissions')</h5>
+                                    <h6 class="card-subtitle text-muted fw-light">@lang('rbac.role.form.ph.permissions')</h6>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -55,59 +64,35 @@
                                             model="searchPermission"
                                         />
                                     </div>
-
                                     <div class="d-flex align-items-end">
-                                        <button
-                                            class="btn btn-primary"
-                                            type="button"
-                                            wire:click="toggleSelectAllPermissions"
-                                            style="padding: 0.8555rem 1rem;"
-                                        >
+                                        <button class="btn btn-primary" type="button" wire:click="toggleSelectAllPermissions" style="padding: 0.8555rem 1rem;">
                                             @lang('button.select_all')
                                         </button>
                                     </div>
                                 </div>
-                                <ul class="list-unstyled" style="overflow-y: auto; max-height: 350px;">
+                                <ul class="list-unstyled" style="overflow-y: auto; max-height: 400px;">
                                     @forelse ($this->permissions as $groupName => $permissions)
                                         <div class="mt-3" wire:key="group-{{ $groupName }}">
                                             @php
-                                                $idsInGroup = collect($this->permissions[$groupName] ?? [])->pluck('id');
+                                                $idsInGroup  = collect($this->permissions[$groupName] ?? [])->pluck('id');
                                                 $allSelected = $idsInGroup->every(fn($id) => in_array($id, $this->selectedPermissions));
                                                 $someSelected = $idsInGroup->contains(fn($id) => in_array($id, $this->selectedPermissions)) && !$allSelected;
                                             @endphp
-
                                             <div class="form-check border-bottom pb-3" x-data>
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    id="group-{{ $loop->index }}"
-                                                    x-ref="checkbox"
-
+                                                <input class="form-check-input" type="checkbox" id="group-{{ $loop->index }}" x-ref="checkbox"
                                                     x-effect="
-                                                        $refs.checkbox.checked = {{ $allSelected ? 'true' : 'false' }};
+                                                        $refs.checkbox.checked       = {{ $allSelected  ? 'true' : 'false' }};
                                                         $refs.checkbox.indeterminate = {{ $someSelected ? 'true' : 'false' }};
                                                     "
-
-                                                    wire:click="togglePermissionGroup('{{ $groupName }}', true)"
-                                                >
-
-                                                <label class="form-check-label fw-bold" for="group-{{ $loop->index }}">
-                                                    {{ $groupName }}
-                                                </label>
+                                                    wire:click="togglePermissionGroup('{{ $groupName }}')">
+                                                <label class="form-check-label fw-bold" for="group-{{ $loop->index }}">{{ $groupName }}</label>
                                             </div>
-
                                             <ul class="list-unstyled ps-4 mt-2 mb-0 border-bottom">
                                                 @foreach ($permissions as $permission)
                                                     <li class="form-check" wire:key="perm-{{ $permission->id }}">
-                                                        <input
-                                                            class="form-check-input" type="checkbox"
-                                                            value="{{ $permission->id }}"
-                                                            wire:model.live="selectedPermissions"
-                                                            id="perm-{{ $permission->id }}"
-                                                        />
-                                                        <label class="form-check-label" for="perm-{{ $permission->id }}">
-                                                            {{ $permission->name }}
-                                                        </label>
+                                                        <input class="form-check-input" type="checkbox" value="{{ $permission->id }}"
+                                                            wire:model.live="selectedPermissions" id="perm-{{ $permission->id }}">
+                                                        <label class="form-check-label" for="perm-{{ $permission->id }}">{{ $permission->name }}</label>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -120,18 +105,19 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card shadow-none border" style="height: 100%;">
+                    {{-- ── Menus + Dynamic Actions ────────────────────────── --}}
+                    <div @class(['col-md-12' => $this->permissions->isEmpty(), 'col-md-8' => $this->permissions->isNotEmpty()])>
+                        <div class="card shadow-none border h-100">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h5 class="card-title mb-2">@lang('rbac.role.form.lb.menus')</h5>
+                                    <h5 class="card-title mb-1">@lang('rbac.role.form.lb.menus')</h5>
                                     <h6 class="card-subtitle text-muted fw-light">
-                                        @lang('rbac.role.form.ph.menus')
+                                        Check menu to grant access. Check actions to grant specific operations.
                                     </h6>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex w-100 gap-2 align-items-center mb-5">
+                                <div class="d-flex w-100 gap-2 align-items-center mb-4">
                                     <div class="flex-grow-1">
                                         <x-ui.form.input
                                             :label="__('labels.search')"
@@ -139,19 +125,24 @@
                                             model="searchMenu"
                                         />
                                     </div>
-
                                     <div class="d-flex align-items-end">
-                                        <button
-                                            class="btn btn-primary"
-                                            type="button"
-                                            wire:click="toggleSelectAllMenus"
-                                            style="padding: 0.8555rem 1rem;"
-                                        >
+                                        <button class="btn btn-primary" type="button" wire:click="toggleSelectAllMenus" style="padding: 0.8555rem 1rem;">
                                             @lang('button.select_all')
                                         </button>
                                     </div>
                                 </div>
-                                <ul class="list-unstyled" style="overflow-y: auto; max-height: 350px;">
+
+                                {{-- Legend --}}
+                                <div class="d-flex gap-3 mb-3">
+                                    <span class="badge bg-label-secondary">
+                                        <i class="ri ri-checkbox-line me-1"></i> Menu access
+                                    </span>
+                                    <span class="badge bg-label-primary">
+                                        <i class="ri ri-check-double-line me-1"></i> Action permission
+                                    </span>
+                                </div>
+
+                                <ul class="list-unstyled" style="overflow-y: auto; max-height: 450px;">
                                     @forelse ($this->menus as $menu)
                                         @include('rbac::livewire.role.partials.menu-item', ['menu' => $menu, 'level' => 0])
                                     @empty
@@ -163,6 +154,7 @@
                     </div>
 
                 </div>
+
                 <div class="text-end mt-4">
                     <a href="{{ route('rbac.role.index') }}" class="btn btn-light mr-2">Cancel</a>
                     <button type="submit" class="btn btn-primary">

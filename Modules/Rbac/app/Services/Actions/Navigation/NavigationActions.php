@@ -83,6 +83,7 @@ class NavigationActions extends ActionsService
             'controller_name' => Arr::get($this->data, 'controller_name'),
             'route_name' => Arr::get($this->data, 'route_name'),
             'url' => Arr::get($this->data, 'url'),
+            'permission_prefix' => Arr::get($this->data, 'permission_prefix'),
             'is_active' => Arr::get($this->data, 'is_active'),
             'is_divider' => Arr::get($this->data, 'is_divider'),
         ];

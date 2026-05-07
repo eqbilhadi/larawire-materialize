@@ -6,7 +6,7 @@
                     <h5 class="card-title mb-2">@lang('rbac.role.title.list')</h5>
                     <h6 class="card-subtitle text-muted fw-light">@lang('rbac.role.subtitle.list')</h6>
                 </div>
-                @can('create role')
+                @can('role.create')
                     <div class="col-6 text-end">
                         <a href="{{ route('rbac.role.create') }}" class="btn btn-primary">
                             <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
@@ -44,7 +44,7 @@
                         <th class="text-center" style="width: 5px">@lang('rbac.role.table.header_no')</th>
                         <th>@lang('rbac.role.table.header_name')</th>
                         <th>@lang('rbac.role.table.header_guard')</th>
-                        @canany(['edit role', 'delete role'])
+                        @canany(['role.edit', 'role.delete'])
                             <th class="text-end">@lang('rbac.role.table.header_actions')</th>
                         @endcanany
                     </tr>
@@ -61,9 +61,9 @@
                             <td>
                                 {{ $role->guard_name }}
                             </td>
-                            @canany(['edit role', 'delete role'])
+                            @canany(['role.edit', 'role.delete'])
                                 <td class="text-end">
-                                    @can('edit role')
+                                    @can('role.edit')
                                         <a
                                             href="{{ route('rbac.role.edit', $role->id) }}"
                                             class="btn btn-icon btn-warning"
@@ -71,7 +71,7 @@
                                             <i class="icon-base ri ri-edit-2-line icon-22px text-white"></i>
                                         </a>
                                     @endcan
-                                    @can('delete role')
+                                    @can('role.delete')
                                         <button
                                             type="button"
                                             class="btn btn-icon btn-danger"

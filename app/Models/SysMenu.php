@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Route;
+use Modules\Rbac\Traits\HasDynamicActions;
 
 class SysMenu extends Model
 {
+    use HasDynamicActions;
+
     protected $table = 'sys_menus';
 
     protected $fillable = [
@@ -22,6 +25,7 @@ class SysMenu extends Model
         'controller_name',
         'route_name',
         'url',
+        'permission_prefix',
         'is_active',
         'is_divider',
     ];

@@ -6,26 +6,24 @@
                     <h5 class="card-title mb-2">{{ __('rbac.nav.title.list') }}</h5>
                     <h6 class="card-subtitle text-muted fw-light">{{ __('rbac.nav.subtitle.list') }}</h6>
                 </div>
-                @canany(['create menu', 'sort menu'])
-                    <div class="col-6 text-end">
-                        @can('sort menu')
-                            <a href="{{ route('rbac.nav.sort') }}" class="btn btn-primary">
-                                <i class="ri ri-sort-asc me-sm-1 icon-20px"></i>
-                                <span class="d-none d-sm-inline">
-                                    {{ __('button.sort') }}  {{ __('rbac.nav.entity') }}
-                                </span>
-                            </a>
-                        @endcan
-                        @can('create menu')
-                            <a href="{{ route('rbac.nav.create') }}" class="btn btn-primary">
-                                <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
-                                <span class="d-none d-sm-inline">
-                                    {{ __('button.add') }}  {{ __('rbac.nav.entity') }}
-                                </span>
-                            </a>
-                        @endcan
-                    </div>
-                @endcan
+                <div class="col-6 text-end">
+                    @can ('nav.sort')
+                        <a href="{{ route('rbac.nav.sort') }}" class="btn btn-primary">
+                            <i class="ri ri-sort-asc me-sm-1 icon-20px"></i>
+                            <span class="d-none d-sm-inline">
+                                {{ __('button.sort') }}  {{ __('rbac.nav.entity') }}
+                            </span>
+                        </a>
+                    @endcan
+                    @can ('nav.create')
+                        <a href="{{ route('rbac.nav.create') }}" class="btn btn-primary">
+                            <i class="ri ri-add-circle-line me-sm-1 icon-20px"></i>
+                            <span class="d-none d-sm-inline">
+                                {{ __('button.add') }}  {{ __('rbac.nav.entity') }}
+                            </span>
+                        </a>
+                    @endcan
+                </div>
             </div>
         </div>
         <div class="card-header border-top">
@@ -67,7 +65,7 @@
                         <th>{{ __('rbac.nav.table.header_route') }}</th>
                         <th>{{ __('rbac.nav.table.header_url') }}</th>
                         <th class="text-center">Status</th>
-                        @canany(['sort menu', 'edit menu', 'delete menu'])
+                        @canany(['nav.edit', 'nav.delete'])
                             <th class="text-end">{{ __('rbac.nav.table.header_actions') }}</th>
                         @endcanany
                     </tr>

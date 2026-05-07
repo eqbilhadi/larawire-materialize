@@ -38,17 +38,25 @@
             >
         </a>
         <!-- /Logo -->
-        <div class="authentication-inner row m-0 position-relative">
+        <div class="authentication-inner row m-0">
             <!-- /Left Section -->
             <div
-                class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center px-0"
+                class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center justify-content-center p-12 pb-2"
             >
                 <img
-                    src="{{ asset('assets/img/backgrounds/login.jpg') }}"
-                    class="authentication-image d-none d-lg-block"
-                    style="object-fit: cover"
+                    src="../../assets/img/illustrations/auth-login-illustration-light.png"
+                    class="auth-cover-illustration w-100"
+                    alt="auth-illustration"
+                    data-app-light-img="illustrations/auth-login-illustration-light.png"
+                    data-app-dark-img="illustrations/auth-login-illustration-dark.png"
                 />
-                <div class="bg-light w-100 h-100 opacity-25"></div>
+                <img
+                    alt="mask"
+                    src="../../assets/img/illustrations/auth-basic-login-mask-light.png"
+                    class="authentication-image d-none d-lg-block"
+                    data-app-light-img="illustrations/auth-basic-login-mask-light.png"
+                    data-app-dark-img="illustrations/auth-basic-login-mask-dark.png"
+                />
             </div>
             <!-- /Left Section -->
             <div class="position-absolute top-4 end-0 p-3 text-end" style="z-index: 10; width: 80px; top: 1rem; inset-inline-end: 1rem;">

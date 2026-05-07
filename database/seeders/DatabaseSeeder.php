@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
+    // use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserRole::class,
             Menu::class,
-            Permission::class,
         ]);
     }
 }

@@ -40,15 +40,15 @@
           </button>
       @endcan
   </td>
-  @canany(['sort menu', 'edit menu', 'delete menu'])
+  @canany(['sort menu', 'nav.edit', 'nav.delete'])
       <td class="text-end">
           <div class="d-flex flex-row justify-content-end align-items-center gap-2">
-              @can('edit menu')
+              @can('nav.edit')
                   <a href="{{ route('rbac.nav.edit', $menu->id) }}" class="btn btn-icon btn-warning">
                     <i class="icon-base ri ri-edit-2-line icon-22px text-white"></i>
                   </a>
               @endcan
-              @can('delete menu')
+              @can('nav.delete')
                   <button type="button" class="btn btn-icon btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id={{ "$menu->id" }}>
                     <i class="icon-base ri ri-delete-bin-5-line icon-22px text-white"></i>
                   </button>
